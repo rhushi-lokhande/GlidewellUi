@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
     lastName: '',
     isActive: true
   }
+  enableValidation: boolean = false;
   constructor(private _userService: UserService) { }
   ngOnInit(): void {
     this.getUserList();
@@ -36,6 +37,7 @@ export class UserListComponent implements OnInit {
       isActive: true
     }
     this.enableAddNewUser = !this.enableAddNewUser;
+    this.enableValidation = false;
   }
   deleteUser(user: IUser) {
     this._userService.deleteUser(user).subscribe(res => {
@@ -45,19 +47,28 @@ export class UserListComponent implements OnInit {
   enableEdit(user: IUser) {
     this.toggleAddUesr();
     Object.assign(this.user, user);
+
   }
   saveNewUser() {
-    if (this.user.id) {
+    this.enableValidation = true;
+    if (this.user.id && this.isValidUser()) {
       this._userService.updateUser(this.user).subscribe(res => {
         this.getUserList();
         this.toggleAddUesr();
       })
-    } else {
+    } else if (this.isValidUser()) {
       this._userService.addNewUser(this.user).subscribe(res => {
         // this.getUserList();
         this.userList.push(res);
         this.toggleAddUesr();
       })
     }
+  }
+
+  isValidUser() {
+    if (this.user.firstName && this.user.lastName) {
+      return true;
+    }
+    return false;
   }
 }

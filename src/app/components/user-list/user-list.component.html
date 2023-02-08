@@ -23,7 +23,7 @@
                                     <h5>Users :</h5>
                                 </div>
                                 <div class="col-sm-4 ">
-                                    <button *ngIf="!enableAddNewUser" type="button"
+                                    <button *ngIf="!isLoading && !enableAddNewUser" type="button"
                                         class="btn btn-danger  btn-sm float-right" (click)="toggleAddUesr()">
                                         <i class="fa-solid fa-plus"></i> Add User
                                     </button>
@@ -45,7 +45,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngIf="enableAddNewUser">
+                                    <tr *ngIf="enableAddNewUser" class="table-primary"
+                                        [ngClass]="{'table-danger':enableValidation && !isValidUser()}">
                                         <td></td>
                                         <td>
                                             <input type="text" [(ngModel)]="user.firstName" class="form-control"
