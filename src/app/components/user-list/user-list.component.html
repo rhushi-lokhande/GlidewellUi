@@ -24,7 +24,8 @@
                                 </div>
                                 <div class="col-sm-4 ">
                                     <button *ngIf="!isLoading && !enableAddNewUser" type="button"
-                                        class="btn btn-danger  btn-sm float-right" (click)="toggleAddUesr()">
+                                        [disabled]="isProcessing" class="btn btn-danger  btn-sm float-right"
+                                        (click)="toggleAddUesr()">
                                         <i class="fa-solid fa-plus"></i> Add User
                                     </button>
                                 </div>
@@ -57,13 +58,13 @@
                                                 placeholder="Enter last name">
                                         </td>
                                         <td>
-                                            <button type="button"
+                                            <button type="button" title="Cancel"
                                                 class="btn btn-danger  btn-sm maring-left-15 float-right"
                                                 [disabled]="isProcessing" (click)="toggleAddUesr()">
                                                 <i class="fa-solid fa-circle-xmark"></i> Cancel
                                             </button>
 
-                                            <button type="button"
+                                            <button type="button" title="Save"
                                                 class="btn btn-primary  btn-sm maring-left-15 float-right"
                                                 [disabled]="isProcessing" (click)="saveNewUser()">
                                                 <i class="fa-solid fa-floppy-disk"></i> Save
@@ -76,12 +77,12 @@
                                         <td>{{user.lastName}}</td>
                                         <td>
                                             <div *ngIf="!enableAddNewUser">
-                                                <button type="button"
+                                                <button type="button" title="Delete uesr"
                                                     class="btn btn-danger  btn-sm maring-left-15 float-right"
                                                     [disabled]="isProcessing" (click)="deleteUser(user)">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
-                                                <button type="button" [disabled]="isProcessing"
+                                                <button type="button" title="Edit user" [disabled]="isProcessing"
                                                     (click)="enableEdit(user)"
                                                     class="btn btn-primary  btn-sm maring-left-15 float-right">
                                                     <i class="fa-solid fa-user-pen"></i>

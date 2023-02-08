@@ -43,11 +43,15 @@ export class UserListComponent implements OnInit {
     this.isProcessing = false;
   }
   deleteUser(user: IUser) {
-    this.isProcessing = true;
-    this._userService.deleteUser(user).subscribe(res => {
-      this.getUserList();
-      this.isProcessing = false;
-    })
+    const res = confirm('Do you  want to delete user!');
+    console.log(res);
+    if (res) {
+      this.isProcessing = true;
+      this._userService.deleteUser(user).subscribe(res => {
+        this.getUserList();
+        this.isProcessing = false;
+      })
+    }
   }
   enableEdit(user: IUser) {
     this.toggleAddUesr();
