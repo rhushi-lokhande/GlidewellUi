@@ -15,7 +15,7 @@ export class UserService {
     return this._httpClient.post('/api/User', user);
   }
   updateUser(user: IUser) {
-    return this._httpClient.put('/api/User', user);
+    return this._httpClient.put(`/api/User/${user.id}`, user);
   }
   deleteUser(user: IUser) {
     return this._httpClient.delete(`/api/User/${user.id}`);

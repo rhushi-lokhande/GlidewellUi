@@ -44,7 +44,7 @@ export class UserListComponent implements OnInit {
   }
   enableEdit(user: IUser) {
     this.toggleAddUesr();
-    this.user = user;
+    Object.assign(this.user, user);
   }
   saveNewUser() {
     if (this.user.id) {
