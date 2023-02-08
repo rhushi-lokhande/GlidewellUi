@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/interface/user.interface';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent implements OnInit {
   isLoading = true;
@@ -17,7 +18,8 @@ export class UserListComponent implements OnInit {
     isActive: true
   }
   enableValidation: boolean = false;
-  constructor(private _userService: UserService) { }
+  isProcessing: boolean = false;
+  constructor(private _userService: UserService, private _cd: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.getUserList();
   }
@@ -25,9 +27,9 @@ export class UserListComponent implements OnInit {
   private getUserList() {
     this.isLoading = true;
     this._userService.getUserList().subscribe(res => {
-      console.log(res);
       this.userList = res;
       this.isLoading = false;
+      this._cd.detectChanges();
     })
   }
   toggleAddUesr() {
@@ -38,10 +40,13 @@ export class UserListComponent implements OnInit {
     }
     this.enableAddNewUser = !this.enableAddNewUser;
     this.enableValidation = false;
+    this.isProcessing = false;
   }
   deleteUser(user: IUser) {
+    this.isProcessing = true;
     this._userService.deleteUser(user).subscribe(res => {
       this.getUserList();
+      this.isProcessing = false;
     })
   }
   enableEdit(user: IUser) {
@@ -52,11 +57,13 @@ export class UserListComponent implements OnInit {
   saveNewUser() {
     this.enableValidation = true;
     if (this.user.id && this.isValidUser()) {
+      this.isProcessing = true;
       this._userService.updateUser(this.user).subscribe(res => {
         this.getUserList();
         this.toggleAddUesr();
       })
     } else if (this.isValidUser()) {
+      this.isProcessing = true;
       this._userService.addNewUser(this.user).subscribe(res => {
         // this.getUserList();
         this.userList.push(res);
@@ -66,7 +73,9 @@ export class UserListComponent implements OnInit {
   }
 
   isValidUser() {
-    if (this.user.firstName && this.user.lastName) {
+    var regName = /^[a-zA-Z]+[a-zA-Z]+$/;
+
+    if (regName.test(this.user.firstName.trim()) && regName.test(this.user.lastName.trim())) {
       return true;
     }
     return false;

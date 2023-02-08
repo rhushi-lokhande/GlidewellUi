@@ -59,13 +59,13 @@
                                         <td>
                                             <button type="button"
                                                 class="btn btn-danger  btn-sm maring-left-15 float-right"
-                                                (click)="toggleAddUesr()">
+                                                [disabled]="isProcessing" (click)="toggleAddUesr()">
                                                 <i class="fa-solid fa-circle-xmark"></i> Cancel
                                             </button>
 
                                             <button type="button"
                                                 class="btn btn-primary  btn-sm maring-left-15 float-right"
-                                                (click)="saveNewUser()">
+                                                [disabled]="isProcessing" (click)="saveNewUser()">
                                                 <i class="fa-solid fa-floppy-disk"></i> Save
                                             </button>
                                         </td>
