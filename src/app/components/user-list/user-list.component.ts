@@ -68,6 +68,7 @@ export class UserListComponent implements OnInit {
         // this.getUserList();
         this.userList.push(res);
         this.toggleAddUesr();
+        this._cd.detectChanges();
       })
     }
   }

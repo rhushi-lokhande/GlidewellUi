@@ -54,7 +54,7 @@
                                         </td>
                                         <td>
                                             <input type="text" [(ngModel)]="user.lastName" class="form-control"
-                                                placeholder="Enter first name">
+                                                placeholder="Enter last name">
                                         </td>
                                         <td>
                                             <button type="button"
@@ -78,10 +78,11 @@
                                             <div *ngIf="!enableAddNewUser">
                                                 <button type="button"
                                                     class="btn btn-danger  btn-sm maring-left-15 float-right"
-                                                    (click)="deleteUser(user)">
+                                                    [disabled]="isProcessing" (click)="deleteUser(user)">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
-                                                <button type="button" (click)="enableEdit(user)"
+                                                <button type="button" [disabled]="isProcessing"
+                                                    (click)="enableEdit(user)"
                                                     class="btn btn-primary  btn-sm maring-left-15 float-right">
                                                     <i class="fa-solid fa-user-pen"></i>
                                                 </button>
