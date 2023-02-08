@@ -27,6 +27,7 @@
                                         [disabled]="isProcessing" class="btn btn-danger  btn-sm float-right"
                                         (click)="toggleAddUesr()">
                                         <i class="fa-solid fa-plus"></i> Add User
+
                                     </button>
                                 </div>
                             </div>
@@ -67,7 +68,9 @@
                                             <button type="button" title="Save"
                                                 class="btn btn-primary  btn-sm maring-left-15 float-right"
                                                 [disabled]="isProcessing" (click)="saveNewUser()">
-                                                <i class="fa-solid fa-floppy-disk"></i> Save
+                                                <i class="fa-solid fa-floppy-disk" *ngIf="!isProcessing"></i>
+                                                <i class="fa fa-spinner fa-spin" *ngIf="isProcessing"></i> Save
+
                                             </button>
                                         </td>
                                     </tr>
