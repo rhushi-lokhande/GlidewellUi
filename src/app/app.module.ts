@@ -7,6 +7,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { HttpClientModule } from "@angular/common/http";
 import { NabBarComponent } from './components/nab-bar/nab-bar.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component'
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +19,8 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

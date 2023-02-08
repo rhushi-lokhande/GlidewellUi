@@ -1,16 +1,9 @@
 <ng-template #loading>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-8">
-                <app-table-loader></app-table-loader>
-            </div>
-        </div>
-    </div>
+    <app-table-loader></app-table-loader>
 </ng-template>
 
 
-<div *ngIf="!isLoading else loading">
+<div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8">
@@ -22,7 +15,8 @@
                                     <h5>Users:</h5>
                                 </div>
                                 <div class="col-sm-4 ">
-                                    <button type="button" class="btn btn-danger  btn-sm float-right">
+                                    <button *ngIf="!enableAddNewUser" type="button"
+                                        class="btn btn-danger  btn-sm float-right" (click)="toggleAddUesr()">
                                         <i class="fa-solid fa-plus"></i> Add
                                     </button>
                                 </div>
@@ -31,7 +25,7 @@
 
                     </div>
                     <div class="card-body no-padding">
-                        <table class="table table-striped table-hover no-margin">
+                        <table *ngIf="!isLoading else loading" class="table table-striped table-hover no-margin">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -41,19 +35,44 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr *ngIf="enableAddNewUser">
+                                    <td></td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="user.firstName" class="form-control"
+                                            placeholder="Enter first name">
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="user.lastName" class="form-control"
+                                            placeholder="Enter first name">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger  btn-sm maring-left-15 float-right"
+                                            (click)="toggleAddUesr()">
+                                            <i class="fa-solid fa-circle-xmark"></i> Cancel
+                                        </button>
+
+                                        <button type="button" class="btn btn-primary  btn-sm maring-left-15 float-right"
+                                            (click)="saveNewUser()">
+                                            <i class="fa-solid fa-floppy-disk"></i> Save
+                                        </button>
+                                    </td>
+                                </tr>
                                 <tr *ngFor="let user of userList;let i  =  index">
                                     <th scope="row">{{i+1}}</th>
                                     <td>{{user.firstName}}</td>
                                     <td>{{user.lastName}}</td>
                                     <td>
-
-                                        <button type="button" class="btn btn-danger  btn-sm maring-left-15 float-right">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                        <button type="button"
-                                            class="btn btn-primary  btn-sm maring-left-15 float-right">
-                                            <i class="fa-solid fa-user-pen"></i>
-                                        </button>
+                                        <div *ngIf="!enableAddNewUser">
+                                            <button type="button"
+                                                class="btn btn-danger  btn-sm maring-left-15 float-right"
+                                                (click)="deleteUser(user)">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                            <button type="button" (click)="enableEdit(user)"
+                                                class="btn btn-primary  btn-sm maring-left-15 float-right">
+                                                <i class="fa-solid fa-user-pen"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
