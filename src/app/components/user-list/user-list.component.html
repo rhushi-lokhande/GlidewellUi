@@ -74,6 +74,11 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    <tr class="table-danger" *ngIf="enableValidation && !isValidUser()">
+                                        <td colspan="4">
+                                            <span class="text-error">Please enter valid first name and last name</span>
+                                        </td>
+                                    </tr>
                                     <tr *ngFor="let user of userList;let i  =  index">
                                         <th scope="row">{{i+1}}</th>
                                         <td>{{user.firstName}}</td>
