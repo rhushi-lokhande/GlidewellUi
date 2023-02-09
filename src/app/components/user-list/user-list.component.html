@@ -17,7 +17,7 @@
             <div class="col-sm-8">
                 <div class="card">
                     <div class="card-header">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-sm-8">
                                     <h5>Users :</h5>
@@ -75,7 +75,8 @@
                                         </td>
                                     </tr>
                                     <tr class="table-danger" *ngIf="enableValidation && !isValidUser()">
-                                        <td colspan="4">
+                                        <td></td>
+                                        <td colspan="3">
                                             <span class="text-error">Please enter valid first name and last name</span>
                                         </td>
                                     </tr>
